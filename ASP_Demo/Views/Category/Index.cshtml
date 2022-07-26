@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Categories>
+@{
+    ViewData["Title"] = "Categories";
+}
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-8 text-start">
+            <h2 class=" ms-2"> Categories</h2>
+        </div>
+
+         <div class="col-4 text-center">
+             <a class=" btn btn-md btn-dark text-light" asp-controller="Category" asp-action="AddNew" > Add Category</a>
+        </div>
+    </div>
+
+   <div class="row">
+
+    @foreach(var category in Model)
+    { 
+     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card m-2" style="width: auto;">
+          <div class="card-header"> Item @category.ID</div>
+            <div class="card-body">
+                <h5 class="card-title">@category.Name</h5>
+                <p class="card-text">Display Order: @category.DisplayOrder </p>
+                <p class="card-text">DateTime Created : @category.CreatedDateTime </p>
+                <div class="" style="width: auto;">
+                   <a class="btn btn-primary">Edit</a>
+                    <a class="btn btn-danger">Delete</a>
+                </div>
+           </div>
+        </div>     </div>
+      
+    }
+   </div>
+
+
+  
+
+</div>
