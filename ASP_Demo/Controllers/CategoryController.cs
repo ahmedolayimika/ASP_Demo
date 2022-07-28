@@ -31,7 +31,7 @@ namespace ASP_Demo.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddNew(Categories obj)
         {
-
+            
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
@@ -50,14 +50,14 @@ namespace ASP_Demo.Controllers
         public IActionResult Edit(int? id)
         {
 
-            if (id == null || id == 0)
+            if(id == null || id == 0)
             {
                 return NotFound();
             }
             else
             {
                 var CategoryFromDb = _db.Categories.Find(id);
-                if (CategoryFromDb == null)
+                if(CategoryFromDb == null)
                 {
                     return NotFound();
                 }
@@ -73,7 +73,7 @@ namespace ASP_Demo.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Categories obj)
         {
-
+           
             if (ModelState.IsValid)
             {
                 _db.Categories.Update(obj);
@@ -85,45 +85,6 @@ namespace ASP_Demo.Controllers
             {
                 return View();
             }
-
-        }
-
-        //Get
-        public IActionResult Delete(int? id)
-        {
-
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            else
-            {
-                var CategoryFromDb = _db.Categories.Find(id);
-                if (CategoryFromDb == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return View(CategoryFromDb);
-                }
-            }
-        }
-
-        //Post
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteItem(int? id)
-        {
-            var obj = _db.Categories.Find(id);
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
 
         }
 
