@@ -20,6 +20,7 @@ namespace ASP_Demo.Controllers
             return View(objCategoryList);
         }
 
+        //Get
         public IActionResult AddNew()
         {
             return View();
@@ -30,9 +31,52 @@ namespace ASP_Demo.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddNew(Categories obj)
         {
+            
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            else
+            {
+                return View();
+            }
+
+        }
+
+        //Get
+        public IActionResult Edit(int? id)
+        {
+
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var CategoryFromDb = _db.Categories.Find(id);
+                if(CategoryFromDb == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(CategoryFromDb);
+                }
+            }
+        }
+
+        //Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Categories obj)
+        {
+           
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Update(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
