@@ -1,0 +1,23 @@
+﻿@if (TempData["added"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h4 class="m-2"> @TempData["added"]</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["updated"] != null)
+{
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <h4 class="m-2"> @TempData["updated"]</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["deleted"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h4 class="m-2"> @TempData["deleted"]</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
