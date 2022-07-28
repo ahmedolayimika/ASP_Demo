@@ -27,7 +27,7 @@
                 <p class="card-text">DateTime Created : @category.CreatedDateTime </p>
                 <div class="" style="width: auto;">
                    <a class="btn btn-primary" asp-controller="Category" asp-action="Edit" asp-route-id="@category.ID">Edit</a>
-                    <a class="btn btn-outline-danger">Delete</a>
+                    <a class="btn btn-outline-danger" asp-controller="Category" asp-action="Delete" asp-route-id = "@category.ID">Delete</a>
                 </div>
            </div>
         </div>     </div>
