@@ -13,29 +13,30 @@ namespace ASP_Demo.Controllers
         {
             _db = db;
         }
-
+        //Index page for Categories
         public IActionResult Index()
         {
             IEnumerable<Categories> objCategoryList = _db.Categories;
             return View(objCategoryList);
         }
 
-        //Get
+        //Page for adding new Category
         public IActionResult AddNew()
         {
             return View();
         }
 
-        //Post
+        //Post- This action will post new Category to DB
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddNew(Categories obj)
         {
-            
+
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["added"] = obj.Name + " added successfully";
                 return RedirectToAction("Index");
             }
 
@@ -46,18 +47,18 @@ namespace ASP_Demo.Controllers
 
         }
 
-        //Get
+        //Get: This action/page will return the selected Category == id from DB
         public IActionResult Edit(int? id)
         {
 
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
             else
             {
                 var CategoryFromDb = _db.Categories.Find(id);
-                if(CategoryFromDb == null)
+                if (CategoryFromDb == null)
                 {
                     return NotFound();
                 }
@@ -68,16 +69,17 @@ namespace ASP_Demo.Controllers
             }
         }
 
-        //Post
+        //Post: will Update the Edited Category
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Categories obj)
         {
-           
+
             if (ModelState.IsValid)
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["updated"] = obj.Name + " updated successfully";
                 return RedirectToAction("Index");
             }
 
@@ -85,6 +87,50 @@ namespace ASP_Demo.Controllers
             {
                 return View();
             }
+
+        }
+
+        //Get: This action/page will return the selected Category == id from DB
+        public IActionResult Delete(int? id)
+        {
+
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var CategoryFromDb = _db.Categories.Find(id);
+                if (CategoryFromDb == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(CategoryFromDb);
+                }
+            }
+        }
+
+        //Post: will remove the Category from DB
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteItem(int? id)
+        {
+            var obj = _db.Categories.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _db.Categories.Remove(obj);
+                _db.SaveChanges();
+                TempData["deleted"] = obj.Name + " deleted successfully";
+                return RedirectToAction("Index");
+            }
+            
+
 
         }
 
