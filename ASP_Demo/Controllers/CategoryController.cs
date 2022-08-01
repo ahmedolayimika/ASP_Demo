@@ -129,7 +129,7 @@ namespace ASP_Demo.Controllers
                 TempData["deleted"] = obj.Name + " deleted successfully";
                 return RedirectToAction("Index");
             }
-            
+
 
 
         }
